@@ -42,9 +42,15 @@ const generateToken = async (infos) => {
   return token;
 };
 
+const getAll = async () => {
+  const data = await model.User.findAll({ attributes: { exclude: ['password'] } });
+  return data;
+};
+
 module.exports = {
   validateUser,
   validateEmail,
   createUser,
   generateToken,
+  getAll,
 };
