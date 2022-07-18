@@ -23,7 +23,21 @@ const getAll = async (_req, res) => {
   return res.status(200).json(data);
 };
 
+const findById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const data = await userService.findById(id);
+    const { status, message } = data;
+
+    if (status) return res.status(status).json(message);
+    return res.status(200).json(data);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   userController,
   getAll,
+  findById,
 };

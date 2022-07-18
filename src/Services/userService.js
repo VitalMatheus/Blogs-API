@@ -47,10 +47,18 @@ const getAll = async () => {
   return data;
 };
 
+const findById = async (id) => {
+  const data = await model.User.findOne({ where: { id }, attributes: { exclude: ['password'] } });
+
+  if (!data) return { status: 404, message: { message: 'User does not exist' } };
+  return data;
+};
+
 module.exports = {
   validateUser,
   validateEmail,
   createUser,
   generateToken,
   getAll,
+  findById,
 };
