@@ -1,12 +1,10 @@
 const loginService = require('../Services/loginService');
-// const generateJWTToken = require('../')
 
 const loginController = async (req, res, next) => {
   try {
     const data = await loginService.loginService(req.body);
     if (data.status) {
       return res.status(data.status).json(data.message);
-      // const token = generateJWTToken({ email });
     }
     const validateUser = await loginService.validateUser(req.body);
     if (validateUser.status) {
