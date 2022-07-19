@@ -12,6 +12,12 @@ const categoryController = async (req, res) => {
   }
 };
 
+const getAll = async (_req, res) => {
+  const data = await categoryService.getAll();
+  return res.status(200).json(data);
+};
+
 module.exports = {
   categoryController,
+  getAll,
 };

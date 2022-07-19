@@ -14,6 +14,12 @@ const insertCategory = async (name) => {
   return category;
 };
 
+const getAll = async () => {
+  const data = await model.Category.findAll();
+  return data;
+};
+
 module.exports = {
   insertCategory,
+  getAll,
 };
