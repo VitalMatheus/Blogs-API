@@ -1,3 +1,4 @@
+const Joi = require('joi');
 const model = require('../database/models');
 
 const getAll = async () => {
@@ -27,7 +28,30 @@ const findById = async (id) => {
   return data;
 };
 
+const updatePost = async (id, data, fields) => {
+  const post = await model.BlogPost.findOne({
+    where: { id },
+    raw: true,
+  });
+  if (post.userId !== data.id) {
+    return { status: 401, message: { message: 'Unauthorized user' } };
+  }
+  const Schema = Joi.object({
+    title: Joi.string().required(),
+    content: Joi.string().required(),
+  });
+  const validate = Schema.validate(fields);
+
+  if (validate.error) {
+    return { status: 400, message: { message: 'Some required fields are missing' } };
+  }
+  const [updated] = await model.BlogPost.update(fields, { where: { id } });
+  const result = findById(updated);
+  return result;
+};
+
 module.exports = {
   getAll,
   findById,
+  updatePost,
 };
