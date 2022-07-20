@@ -1,10 +1,11 @@
 const express = require('express');
 const userController = require('../Controllers/userController');
+const validateToken = require('../helpers/middleware');
 
 const User = express.Router();
 
 User.post('/', userController.userController);
-User.get('/', userController.getAll);
-User.get('/:id', userController.findById);
+User.get('/:id', validateToken, userController.findById);
+User.get('/', validateToken, userController.getAll);
 
 module.exports = User;
