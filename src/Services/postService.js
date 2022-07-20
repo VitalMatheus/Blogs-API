@@ -13,6 +13,21 @@ const getAll = async () => {
   return data;
 };
 
+const findById = async (id) => {
+  const data = await model.BlogPost.findOne({
+    include: [{
+      model: model.User, as: 'user', attributes: { exclude: ['password'] },
+    }, {
+      model: model.Category, as: 'categories', through: { attributes: [] },
+    }],
+    where: { id },
+  });
+
+  if (!data) return { status: 404, message: { message: 'Post does not exist' } };
+  return data;
+};
+
 module.exports = {
   getAll,
+  findById,
 };
