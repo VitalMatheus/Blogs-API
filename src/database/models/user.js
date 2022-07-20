@@ -2,7 +2,8 @@ const User = (sequelize, DataTypes) => {
   const tableUser = sequelize.define("User", {
     id: {
       type: DataTypes.INTEGER,
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true
     },
     displayName: DataTypes.STRING,
     email: DataTypes.STRING,
@@ -14,7 +15,6 @@ const User = (sequelize, DataTypes) => {
     tableUser.hasMany(models.BlogPost,
       { foreignKey: 'userId', as: 'posts' });
     };
-
 
   return tableUser;
 };

@@ -27,11 +27,14 @@ module.exports = {
         onDelete: 'CASCADE',
         primaryKey: true,
       },
+      // Referência: https://github.com/sequelize/sequelize/issues/4679#:~:text=Hehe%20no%20problem,Thanks%20anyways
       published: {
+        defaultValue: Sequelize.fn('NOW'), 
         allowNull: false,
         type: Sequelize.DATE
       },
       updated: {
+        defaultValue: Sequelize.fn('NOW'), 
         allowNull: false,
         type: Sequelize.DATE
       }
